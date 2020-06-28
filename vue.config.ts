@@ -1,3 +1,4 @@
 module.exports = {
-  publicPath: "meal-finder-vuejs",
+  publicPath:
+    process.env.NODE_ENV === "production" ? "/meal-finder-vuejs/" : "/",
 };
