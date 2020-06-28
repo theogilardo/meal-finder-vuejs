@@ -36,7 +36,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      records: [],
+      records: [] as API[],
     };
   },
   methods: {
@@ -55,6 +55,8 @@ export default Vue.extend({
         fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
           .then((response) => response.json())
           .then((data) => {
+            console.log(data);
+            console.log(typeof data);
             this.records.push(data.meals[0]);
           });
       }
@@ -113,7 +115,7 @@ a {
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 p {
@@ -133,12 +135,22 @@ img {
   }
 
   h2 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
 
   p {
     font-size: 0.7rem;
     padding-right: 4rem;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  p {
+    font-size: 0.5rem;
   }
 }
 </style>

@@ -90,12 +90,15 @@ export default {
 <style scoped>
 .container {
   width: 80%;
-  margin: 0 auto;
-  padding: 8rem 0;
+  margin: 2.5rem auto;
+  padding: 4rem;
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
+  background-color: #33333366;
+  color: white;
+  border-radius: 4px;
 }
 
 .container__info {
@@ -128,10 +131,14 @@ p {
   max-width: 40rem;
   float: left;
   padding: 0 2rem 2rem 0;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .btn {
   margin: 5rem;
+  color: white;
+  border: 4px solid white;
 }
 
 .ingredients {
@@ -153,8 +160,8 @@ p {
 @media only screen and (max-width: 700px) {
   .container {
     display: block;
-    width: 100%;
-    padding: 2rem 0;
+    width: 90%;
+    /* padding: 2rem 0; */
   }
 
   .container__info {
@@ -171,7 +178,7 @@ p {
   h3,
   p {
     text-align: center;
-    padding: 1rem 6rem;
+    padding: 1rem 2rem;
   }
 
   h1 {
@@ -236,7 +243,7 @@ p {
   justify-content: center;
   font-size: 1.5rem;
   color: white;
-  background-color: #33333399;
+  background-color: #33333310;
   border-radius: 4px;
 }
 

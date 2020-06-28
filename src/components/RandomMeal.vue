@@ -5,7 +5,7 @@
       <h2>{{ meals.strMeal }}</h2>
       <img :src="meals.strMealThumb" alt />
     </div>
-    <button class="btn" @click="fetch()">Randomize</button>
+    <button @click="fetch()">Randomize</button>
   </div>
 </template>
 
@@ -39,36 +39,15 @@ export default {
 
 .container {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
   height: 50%;
   background-color: #eeeeeec6;
   box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.1);
-}
-
-@media only screen and (max-width: 700px) {
-  .container {
-    width: 60%;
-    height: 35%;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-    padding: 3.5rem;
-  }
-
-  button {
-    top: 73%;
-  }
-}
-
-@media only screen and (max-width: 450px) {
-  .container {
-    width: 60%;
-    height: 30%;
-  }
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .container div {
@@ -83,7 +62,7 @@ h2 {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #3333334c;
+  background-color: #33333310;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,10 +72,23 @@ h2 {
 
 button {
   position: absolute;
-  top: 80%;
+  top: 70%;
   left: 50%;
   transform: translateX(-50%);
   font-size: 1.5rem;
+  padding: 1rem 2rem;
+  font-weight: 700;
+  background-color: white;
+  color: #333;
+  border: none;
+  background-image: linear-gradient(to right bottom, #8360c3cc, #2ebf91cc);
+  background-clip: text;
+  color: transparent;
+  border-radius: 4px;
+  text-transform: uppercase;
+  border: 4px solid transparent;
+  border-image: linear-gradient(to right bottom, #8360c3cc, #2ebf91cc);
+  border-image-slice: 1;
 }
 
 @media only screen and (max-width: 400px) {
@@ -110,5 +102,28 @@ img {
   height: 100%;
   object-fit: cover;
   background-size: cover;
+}
+
+@media only screen and (max-width: 700px) {
+  .container {
+    width: 60%;
+    height: 35%;
+  }
+
+  h2 {
+    font-size: 2rem;
+    padding: 3.5rem;
+  }
+
+  button {
+    top: 73%;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .container {
+    width: 60%;
+    height: 30%;
+  }
 }
 </style>

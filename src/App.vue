@@ -26,12 +26,33 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  padding-top: 60px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   min-height: 100vh;
+}
+
+body {
+  background-image: url("assets/cooking.jpg");
+  object-fit: cover;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  z-index: -5;
+}
+
+body::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  opacity: 0.25;
 }
 
 *,
@@ -56,18 +77,16 @@ html {
 .btn {
   padding: 1rem 2rem;
   font-weight: 700;
-  background-color: white;
-  color: #333;
   border: none;
   background-image: linear-gradient(to right bottom, #8360c3cc, #2ebf91cc);
-  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
   border-radius: 4px;
   text-transform: uppercase;
   border: 4px solid transparent;
   border-image: linear-gradient(to right bottom, #8360c3cc, #2ebf91cc);
   border-image-slice: 1;
-  transition: all 0.5s;
+  transition: transform 0.5s;
 }
 
 .btn:hover {

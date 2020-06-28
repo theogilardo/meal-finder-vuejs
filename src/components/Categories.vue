@@ -3,7 +3,7 @@
     <div class="wrapper">
       <div class="container">
         <div v-bind:key="category.id" v-for="category in categories">
-          <p>{{category.strCategory}}</p>
+          <p>{{ category.strCategory }}</p>
           <img :src="category.strCategoryThumb" alt="photo" />
         </div>
       </div>
@@ -19,22 +19,22 @@ export default {
   },
   data() {
     return {
-      categories: []
+      categories: [],
     };
   },
   methods: {
     fetch() {
       fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`)
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => response.json())
+        .then((data) => {
           data.categories.forEach((category, index) => {
             if (index < 9) {
               this.categories.push(category);
             }
           });
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -45,6 +45,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: -3.5rem;
 }
 
 .container {
