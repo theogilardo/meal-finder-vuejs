@@ -17,18 +17,18 @@ export default {
   },
   data() {
     return {
-      meals: "",
+      meals: ""
     };
   },
   methods: {
     fetch() {
       fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
-        .then((response) => response.json())
-        .then((data) => {
+        .then(response => response.json())
+        .then(data => {
           this.meals = data.meals[0];
         });
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -91,12 +91,6 @@ button {
   border-image-slice: 1;
 }
 
-@media only screen and (max-width: 400px) {
-  button {
-    top: 70%;
-  }
-}
-
 img {
   width: 100%;
   height: 100%;
@@ -124,6 +118,10 @@ img {
   .container {
     width: 60%;
     height: 30%;
+  }
+
+  button {
+    top: 70%;
   }
 }
 </style>

@@ -17,17 +17,9 @@
     <div v-if="dataAvailable">
       <h3>Recommended Recipes</h3>
       <div class="recommendations">
-        <div
-          v-bind:key="record.id"
-          v-for="record in records"
-          class="recommendation"
-        >
+        <div v-bind:key="record.id" v-for="record in records" class="recommendation">
           <h4>{{ record.strMeal }}</h4>
-          <img
-            class="recommendation__img"
-            :src="record.strMealThumb"
-            alt="photo"
-          />
+          <img class="recommendation__img" :src="record.strMealThumb" alt="photo" />
         </div>
       </div>
     </div>
@@ -47,7 +39,7 @@ export default {
       ingredients: [],
       records: [],
       show: false,
-      dataAvailable: false,
+      dataAvailable: false
     };
   },
   methods: {
@@ -71,8 +63,8 @@ export default {
       fetch(
         `https://www.themealdb.com/api/json/v1/1/search.php?s=${this.details.strCategory}`
       )
-        .then((response) => response.json())
-        .then((data) => {
+        .then(response => response.json())
+        .then(data => {
           if (data.meals) {
             data.meals.forEach((meal, index) => {
               if (index < 3) {
@@ -82,8 +74,8 @@ export default {
             this.dataAvailable = true;
           }
         });
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -157,6 +149,42 @@ p {
   border-radius: 4px;
 }
 
+.recommendations {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 5rem;
+}
+
+.recommendation {
+  position: relative;
+  margin: 5px;
+  width: 70%;
+  height: 15rem;
+}
+
+.recommendation h4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  background-color: #33333310;
+  border-radius: 4px;
+}
+
+.recommendation__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
 @media only screen and (max-width: 700px) {
   .container {
     display: block;
@@ -216,41 +244,5 @@ p {
     width: 70%;
     margin: 1rem;
   }
-}
-
-.recommendations {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-top: 5rem;
-}
-
-.recommendation {
-  position: relative;
-  margin: 5px;
-  width: 70%;
-  height: 15rem;
-}
-
-.recommendation h4 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  color: white;
-  background-color: #33333310;
-  border-radius: 4px;
-}
-
-.recommendation__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 4px;
 }
 </style>

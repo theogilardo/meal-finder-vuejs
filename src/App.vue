@@ -14,8 +14,8 @@ export default {
   name: "App",
   components: {
     Footer,
-    Navbar,
-  },
+    Navbar
+  }
 };
 </script>
 
@@ -86,6 +86,7 @@ html {
   border: 4px solid transparent;
   border-image: linear-gradient(to right bottom, #8360c3cc, #2ebf91cc);
   border-image-slice: 1;
+  box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.2);
   transition: transform 0.5s;
 }
 
