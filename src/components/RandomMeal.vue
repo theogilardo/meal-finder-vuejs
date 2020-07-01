@@ -1,13 +1,24 @@
+
 <template>
-  <div>
-    <div class="vh"></div>
-    <div class="container">
-      <h2>{{ meals.strMeal }}</h2>
-      <img :src="meals.strMealThumb" alt />
+  <div class="container">
+    <div>
+      <button class="btn-randomize" @click="fetch()">Randomize</button>
+      <img class="container__img" :src="meals.strMealThumb" alt />
+      <div class="container__info">
+        <h1>{{ meals.strMeal }}</h1>
+        <h3>Recipe</h3>
+        <p>{{ meals.strInstructions }}</p>
+      </div>
+      <button class="btn" @click="setShow()">View Ingredients</button>
     </div>
-    <button @click="fetch()">Randomize</button>
+    <div class="ingredients" v-if="show">
+      <ul v-bind:key="ingredient.id" v-for="ingredient in ingredients">
+        <li class="ingredient" v-html="ingredient"></li>
+      </ul>
+    </div>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -17,15 +28,34 @@ export default {
   },
   data() {
     return {
-      meals: ""
+      meals: "",
+      ingredients: [],
+      records: [],
+      show: false
     };
   },
   methods: {
+    setShow() {
+      this.show = !this.show;
+    },
+
     fetch() {
       fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
         .then(response => response.json())
         .then(data => {
           this.meals = data.meals[0];
+          this.ingredients = [];
+          for (let i = 1; i <= 20; i++) {
+            if (this.meals[`strIngredient${i}`]) {
+              this.ingredients.push(
+                `<strong> ${this.meals[`strIngredient${i}`]} </strong> <br> ${
+                  this.meals[`strMeasure${i}`]
+                }`
+              );
+            } else {
+              break;
+            }
+          }
         });
     }
   }
@@ -33,95 +63,140 @@ export default {
 </script>
 
 <style scoped>
-.vh {
-  height: 100vh;
+.container {
+  position: relative;
+  min-height: 80%;
+  width: 80%;
+  margin: 1.5rem auto;
+  padding: 4rem 4rem 0 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  background-color: #33333366;
+  color: white;
+  border-radius: 4px;
 }
 
-.container {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.container__info {
+  text-align: left;
+  margin-left: 7rem;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+  display: inherit;
+}
+
+h1 {
+  font-size: 2.3rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.7rem;
+  font-style: italic;
+}
+
+p {
+  font-size: 1.3rem;
+  padding: 1rem 7rem 1rem 0;
+}
+
+.container__img {
   width: 50%;
-  height: 50%;
-  background-color: #eeeeeec6;
-  box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.1);
+  max-width: 40rem;
+  float: left;
+  padding: 0 2rem 2rem 0;
   border-radius: 4px;
   overflow: hidden;
 }
 
-.container div {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-h2 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #33333310;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.btn {
+  margin: 3.5rem 0 3.5rem 0;
   color: white;
-  font-size: 3rem;
+  border: 4px solid white;
 }
 
-button {
+.ingredients {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  margin-bottom: 4rem;
+}
+
+.ingredient {
+  list-style: none;
+  text-align: center;
+  color: white;
+  background-image: linear-gradient(to right bottom, #8360c3, #2ebf91);
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 4px;
+}
+
+.btn-randomize {
   position: absolute;
-  top: 70%;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 5%;
+  right: 5%;
   font-size: 1.5rem;
   padding: 1rem 2rem;
   font-weight: 700;
-  background-color: white;
-  color: #333;
-  border: none;
   background-image: linear-gradient(to right bottom, #8360c3cc, #2ebf91cc);
-  background-clip: text;
-  color: transparent;
+  color: white;
   border-radius: 4px;
+  border: none;
   text-transform: uppercase;
-  border: 4px solid transparent;
-  border-image: linear-gradient(to right bottom, #8360c3cc, #2ebf91cc);
-  border-image-slice: 1;
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background-size: cover;
 }
 
 @media only screen and (max-width: 700px) {
   .container {
-    width: 60%;
-    height: 35%;
+    display: block;
+    width: 90%;
   }
 
-  h2 {
+  .container__info {
+    display: block;
+  }
+
+  .container__info {
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h3,
+  p {
+    text-align: center;
+    padding: 1rem 2rem;
+  }
+
+  h1 {
+    padding: 1rem 4rem;
     font-size: 2rem;
-    padding: 3.5rem;
+    text-align: center;
   }
 
-  button {
-    top: 73%;
-  }
-}
-
-@media only screen and (max-width: 450px) {
-  .container {
-    width: 60%;
-    height: 30%;
+  p {
+    text-align: justify;
   }
 
-  button {
-    top: 70%;
+  .container__img {
+    margin-bottom: 2rem;
+    float: none;
+    padding: 0;
+  }
+
+  .ingredients {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+  }
+
+  .ingredient {
+    padding: 1rem;
+    font-size: 1.4rem;
+    margin: 1rem 2rem;
   }
 }
 </style>
+

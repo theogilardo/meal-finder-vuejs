@@ -94,6 +94,7 @@ html {
   transform: translateY(-2px);
 }
 
+button,
 .btn:focus {
   outline: 0;
 }

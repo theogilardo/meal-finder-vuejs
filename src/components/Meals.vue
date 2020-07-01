@@ -36,7 +36,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      records: [] as API[],
+      records: [] as API[]
     };
   },
   methods: {
@@ -53,15 +53,13 @@ export default Vue.extend({
     fetch() {
       for (let i = 0; i < 10; i++) {
         fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            console.log(typeof data);
+          .then(response => response.json())
+          .then(data => {
             this.records.push(data.meals[0]);
           });
       }
-    },
-  },
+    }
+  }
 });
 </script>
 

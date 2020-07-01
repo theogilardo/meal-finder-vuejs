@@ -189,7 +189,6 @@ p {
   .container {
     display: block;
     width: 90%;
-    /* padding: 2rem 0; */
   }
 
   .container__info {
