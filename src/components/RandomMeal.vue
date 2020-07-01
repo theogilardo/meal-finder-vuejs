@@ -38,24 +38,26 @@ export default {
     setShow() {
       this.show = !this.show;
     },
-
+    formatIngredients() {
+      for (let i = 1; i <= 20; i++) {
+        if (this.meals[`strIngredient${i}`]) {
+          this.ingredients.push(
+            `<strong> ${this.meals[`strIngredient${i}`]} </strong> <br> ${
+              this.meals[`strMeasure${i}`]
+            }`
+          );
+        } else {
+          break;
+        }
+      }
+    },
     fetch() {
       fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
         .then(response => response.json())
         .then(data => {
           this.meals = data.meals[0];
           this.ingredients = [];
-          for (let i = 1; i <= 20; i++) {
-            if (this.meals[`strIngredient${i}`]) {
-              this.ingredients.push(
-                `<strong> ${this.meals[`strIngredient${i}`]} </strong> <br> ${
-                  this.meals[`strMeasure${i}`]
-                }`
-              );
-            } else {
-              break;
-            }
-          }
+          this.formatIngredients();
         });
     }
   }
@@ -65,10 +67,11 @@ export default {
 <style scoped>
 .container {
   position: relative;
-  min-height: 80%;
+  height: 80%;
+  min-height: 100%;
   width: 80%;
-  margin: 1.5rem auto;
-  padding: 4rem 4rem 0 4rem;
+  margin: 1.5rem auto 5rem auto;
+  padding: 7rem 4rem 4rem 4rem;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -82,38 +85,39 @@ export default {
   text-align: left;
   margin-left: 7rem;
   align-self: flex-start;
-  display: flex;
   flex-direction: column;
   margin-left: 2rem;
-  display: inherit;
 }
 
 h1 {
-  font-size: 2.3rem;
+  font-size: 3rem;
   margin-bottom: 1rem;
+  text-transform: uppercase;
+  font-family: "Permanent Marker", cursive;
 }
 
 h3 {
-  font-size: 1.7rem;
+  font-size: 1.8rem;
   font-style: italic;
 }
 
 p {
-  font-size: 1.3rem;
-  padding: 1rem 7rem 1rem 0;
+  font-size: 1.6rem;
+  padding-top: 1rem;
+  text-align: justify;
 }
 
 .container__img {
   width: 50%;
   max-width: 40rem;
   float: left;
-  padding: 0 2rem 2rem 0;
+  padding: 0 2rem 0.5rem 0;
   border-radius: 4px;
   overflow: hidden;
 }
 
 .btn {
-  margin: 3.5rem 0 3.5rem 0;
+  margin: 3.5rem 0;
   color: white;
   border: 4px solid white;
 }
@@ -136,8 +140,8 @@ p {
 
 .btn-randomize {
   position: absolute;
-  top: 5%;
-  right: 5%;
+  top: 2%;
+  right: 1.5%;
   font-size: 1.5rem;
   padding: 1rem 2rem;
   font-weight: 700;
@@ -149,6 +153,11 @@ p {
 }
 
 @media only screen and (max-width: 700px) {
+  .btn-randomize {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .container {
     display: block;
     width: 90%;
@@ -182,7 +191,7 @@ p {
   }
 
   .container__img {
-    margin-bottom: 2rem;
+    margin: 2rem 0;
     float: none;
     padding: 0;
   }
@@ -196,6 +205,17 @@ p {
     padding: 1rem;
     font-size: 1.4rem;
     margin: 1rem 2rem;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  h1 {
+    padding: 0;
+  }
+
+  p {
+    font-size: 1.35rem;
+    padding: 0;
   }
 }
 </style>

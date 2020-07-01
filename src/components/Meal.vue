@@ -88,7 +88,7 @@ export default {
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
-  background-color: #33333366;
+  background-color: #33333385;
   color: white;
   border-radius: 4px;
 }
@@ -97,25 +97,26 @@ export default {
   text-align: left;
   margin-left: 7rem;
   align-self: flex-start;
-  display: flex;
   flex-direction: column;
   margin-left: 2rem;
-  display: inherit;
 }
 
 h1 {
-  font-size: 2.3rem;
+  font-size: 3rem;
   margin-bottom: 1rem;
+  text-transform: uppercase;
+  font-family: "Permanent Marker", cursive;
 }
 
 h3 {
-  font-size: 1.7rem;
+  font-size: 1.8rem;
   font-style: italic;
 }
 
 p {
-  font-size: 1.3rem;
-  padding: 1rem 7rem 1rem 0;
+  font-size: 1.6rem;
+  padding-top: 1rem;
+  text-align: justify;
 }
 
 .container__img {
@@ -153,7 +154,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
 
 .recommendation {

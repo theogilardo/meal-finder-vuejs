@@ -10,12 +10,7 @@
           <div class="meal-list">
             <div class="meal-info">
               <h2>{{ record.strMeal }}</h2>
-              <p>
-                {{`Recipe: ${record.strInstructions
-                .split(' ')
-                .filter((word, index) => index &lt; 25)
-                .join(' ')}... ` }}
-              </p>
+              <p>{{ reduceText(record.strInstructions) }}...</p>
             </div>
             <img :src="`${record.strMealThumb}`" alt="meal-photo" />
           </div>
@@ -40,6 +35,12 @@ export default Vue.extend({
     };
   },
   methods: {
+    reduceText(record: string) {
+      return record
+        .split(" ")
+        .filter((word, index) => index < 25)
+        .join(" ");
+    },
     filterAZ() {
       this.records = this.records.sort((a: API, b: API) =>
         a.strMeal < b.strMeal ? -1 : 1
@@ -98,7 +99,7 @@ a {
   justify-content: space-between;
   border: 2px solid beige;
   background-color: #eeeeeec6;
-  height: 10rem;
+  height: 11rem;
   border-radius: 4px;
   transition: all 0.5s;
 }
@@ -108,17 +109,19 @@ a {
 }
 
 .meal-info {
+  flex: 1;
+
   text-align: left;
   padding: 1.5rem;
 }
 
 h2 {
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
 
 p {
-  font-size: 1rem;
-  padding-right: 8rem;
+  font-size: 1.2rem;
+  padding-right: 2rem;
 }
 
 img {
@@ -129,26 +132,45 @@ img {
 
 @media only screen and (max-width: 700px) {
   .meal-list {
-    height: 10rem;
+    position: relative;
+    background-color: transparent;
+    color: white;
+    height: 13rem;
+  }
+
+  .meal-list::after {
+    position: absolute;
+    z-index: -1;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+    opacity: 0.3;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
   }
 
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.9rem;
   }
 
   p {
-    font-size: 0.7rem;
-    padding-right: 4rem;
+    font-size: 1.3rem;
   }
 }
 
 @media only screen and (max-width: 450px) {
-  h2 {
-    font-size: 1.2rem;
-  }
-
-  p {
-    font-size: 0.5rem;
+  .meal-list {
+    height: 16rem;
   }
 }
 </style>
