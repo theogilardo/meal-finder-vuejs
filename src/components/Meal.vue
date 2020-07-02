@@ -245,4 +245,15 @@ p {
     margin: 1rem;
   }
 }
+
+@media only screen and (max-width: 450px) {
+  h1 {
+    padding: 0;
+  }
+
+  p {
+    font-size: 1.35rem;
+    padding: 0;
+  }
+}
 </style>
