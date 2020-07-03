@@ -21,6 +21,11 @@
           <h4>{{ record.strMeal }}</h4>
           <img class="recommendation__img" :src="record.strMealThumb" alt="photo" />
         </div>
+
+        <!-- <div v-bind:key="record.id" v-for="record in records" class="recommendation">
+          <h4>{{ record.strMeal }}</h4>
+          <img class="recommendation__img" :src="record.strMealThumb" alt="photo" />
+        </div>-->
       </div>
     </div>
   </div>
@@ -37,7 +42,7 @@ export default {
     return {
       details: this.$route.params.id,
       ingredients: [],
-      records: [],
+      records: "",
       show: false,
       dataAvailable: false
     };
@@ -66,13 +71,9 @@ export default {
         .then(response => response.json())
         .then(data => {
           if (data.meals) {
-            data.meals.forEach((meal, index) => {
-              if (index < 3) {
-                this.records.push(meal);
-              }
-            });
-            this.dataAvailable = true;
+            this.records = data.meals.slice(0, 3);
           }
+          this.dataAvailable = true;
         });
     }
   }
