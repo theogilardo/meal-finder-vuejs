@@ -11,9 +11,9 @@
       </div>
       <button class="btn" @click="setShow()">View Ingredients</button>
     </div>
-    <div class="ingredients" v-if="show">
-      <ul v-bind:key="ingredient.id" v-for="ingredient in ingredients">
-        <li class="ingredient" v-html="ingredient"></li>
+    <div v-if="show">
+      <ul>
+        <li v-bind:key="ingredient.id" v-for="ingredient in ingredients" v-html="ingredient"></li>
       </ul>
     </div>
   </div>
@@ -42,9 +42,9 @@ export default {
       for (let i = 1; i <= 20; i++) {
         if (this.meals[`strIngredient${i}`]) {
           this.ingredients.push(
-            `<strong> ${this.meals[`strIngredient${i}`]} </strong> <br> ${
+            `${this.meals[`strIngredient${i}`]} <strong>  ${
               this.meals[`strMeasure${i}`]
-            }`
+            }</strong> `
           );
         } else {
           break;
@@ -119,23 +119,20 @@ p {
 .btn {
   margin: 3.5rem 0;
   color: white;
-  border: 4px solid white;
 }
 
-.ingredients {
+ul {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  margin-bottom: 4rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 10rem;
 }
 
-.ingredient {
+li {
   list-style: none;
-  text-align: center;
-  color: white;
-  background-image: linear-gradient(to right bottom, #8360c3, #2ebf91);
-  padding: 1rem;
-  margin: 1rem;
-  border-radius: 4px;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(200, 197, 197, 0.589);
 }
 
 .btn-randomize {
@@ -152,7 +149,14 @@ p {
   text-transform: uppercase;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 1250px) {
+  ul {
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 6rem;
+  }
+}
+
+@media only screen and (max-width: 900px) {
   .btn-randomize {
     left: 50%;
     transform: translateX(-50%);
@@ -196,25 +200,18 @@ p {
     padding: 0;
   }
 
-  .ingredients {
-    grid-template-columns: repeat(2, 1fr);
-    align-items: center;
-  }
-
-  .ingredient {
-    padding: 1rem;
-    font-size: 1.4rem;
-    margin: 1rem 2rem;
+  ul {
+    grid-template-columns: 1fr;
+    grid-column-gap: 0;
   }
 }
 
 @media only screen and (max-width: 450px) {
-  h1 {
-    padding: 0;
+  li {
+    font-size: 1.5rem;
   }
 
-  p {
-    font-size: 1.35rem;
+  h1 {
     padding: 0;
   }
 }
