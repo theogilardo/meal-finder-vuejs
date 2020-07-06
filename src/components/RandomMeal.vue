@@ -24,7 +24,7 @@
 export default {
   name: "RandomMeal",
   mounted() {
-    this.fetch();
+    this.fetchRandomMeal();
   },
   data() {
     return {
@@ -51,14 +51,14 @@ export default {
         }
       }
     },
-    fetch() {
-      fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
-        .then(response => response.json())
-        .then(data => {
-          this.meals = data.meals[0];
-          this.ingredients = [];
-          this.formatIngredients();
-        });
+    async fetchRandomMeal() {
+      const response = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/random.php`
+      );
+      const data = await response.json();
+      this.meals = data.meals[0];
+      this.ingredients = [];
+      this.formatIngredients();
     }
   }
 };
