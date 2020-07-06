@@ -12,7 +12,11 @@
       <button class="btn" @click="setShow()">View Ingredients</button>
       <div v-if="show">
         <ul>
-          <li v-bind:key="ingredient.id" v-for="ingredient in meal.ingredients" v-html="ingredient"></li>
+          <li
+            v-bind:key="ingredient.id"
+            v-for="ingredient in meal.ingredients"
+            v-html="ingredient"
+          ></li>
         </ul>
       </div>
       <div v-if="dataAvailable">
@@ -24,7 +28,11 @@
             class="recommendation"
           >
             <h4>{{ recommendedMeal.strMeal }}</h4>
-            <img class="recommendation__img" :src="recommendedMeal.strMealThumb" alt="photo" />
+            <img
+              class="recommendation__img"
+              :src="recommendedMeal.strMealThumb"
+              alt="photo"
+            />
           </div>
         </div>
       </div>
@@ -42,13 +50,13 @@ export default {
     return {
       recommendedMeals: "",
       show: false,
-      dataAvailable: false
+      dataAvailable: false,
     };
   },
   computed: {
     meal() {
       return JSON.parse(localStorage.getItem("mealStorage"));
-    }
+    },
   },
   methods: {
     setShow() {
@@ -63,7 +71,7 @@ export default {
         if (data.meals) {
           // Removing the current meal from recommendations (based on similar category) to avoid duplicates
           const dataFiltered = data.meals.filter(
-            mealEl => mealEl.idMeal !== this.meal.idMeal
+            (mealEl) => mealEl.idMeal !== this.meal.idMeal
           );
 
           // Displaying only 3 meals from the array rendered
@@ -73,8 +81,8 @@ export default {
           this.dataAvailable = true;
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -210,7 +218,7 @@ li {
   h3,
   p {
     text-align: center;
-    padding: 1rem 2rem;
+    padding: 1rem 0;
   }
 
   h1 {
