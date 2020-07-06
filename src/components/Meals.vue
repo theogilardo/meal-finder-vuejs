@@ -6,7 +6,10 @@
         <button class="btn" @click="filterZA()">Sort Z/A</button>
       </div>
       <div v-bind:key="record.id" v-for="record in records">
-        <router-link :to="{ name: 'meal', params: { id: record.idMeal } }">
+        <router-link
+          @click.native="resetLocalStorage()"
+          :to="{ name: 'meal', params: { id: record.idMeal } }"
+        >
           <div class="meal-list">
             <div class="meal-info">
               <h2>{{ record.strMeal }}</h2>
@@ -32,6 +35,14 @@ export default Vue.extend({
     }
   },
   methods: {
+    resetLocalStorage() {
+      localStorage.clear();
+      localStorage.setItem(
+        "mealStorage",
+        JSON.stringify(this.$store.getters.mealById(this.$route.params.id))
+      );
+      location.reload();
+    },
     reduceText(record: string) {
       return record
         .split(" ")

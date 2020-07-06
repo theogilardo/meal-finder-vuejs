@@ -11,11 +11,7 @@
     <button class="btn" @click="setShow()">View Ingredients</button>
     <div v-if="show">
       <ul>
-        <li
-          v-bind:key="ingredient.id"
-          v-for="ingredient in meal.ingredients"
-          v-html="ingredient"
-        ></li>
+        <li v-bind:key="ingredient.id" v-for="ingredient in meal.ingredients" v-html="ingredient"></li>
       </ul>
     </div>
     <div v-if="dataAvailable">
@@ -27,11 +23,7 @@
           class="recommendation"
         >
           <h4>{{ recommendedMeal.strMeal }}</h4>
-          <img
-            class="recommendation__img"
-            :src="recommendedMeal.strMealThumb"
-            alt="photo"
-          />
+          <img class="recommendation__img" :src="recommendedMeal.strMealThumb" alt="photo" />
         </div>
       </div>
     </div>
@@ -41,28 +33,49 @@
 <script>
 export default {
   name: "Meal",
-  mounted() {
+  created() {
     this.fetchCategory();
+    // if (localStorage.length === 0) {
+    // localStorage.clear();
+    // localStorage.setItem(
+    // "mealStorage",
+    // JSON.stringify(this.$store.getters.mealById(this.$route.params.id))
+    // );
+    // }
+    // this.meal = JSON.parse(localStorage.getItem("mealStorage"));
+
+    // if (localStorage.length !== 0) {
+    //   localStorage.clear();
+    //   localStorage.setItem(
+    //     "mealStorage",
+    //     JSON.stringify(this.$store.getters.mealById(this.$route.params.id))
+    //   );
+    //   this.meal = JSON.parse(localStorage.getItem("mealStorage"));
+    // }
   },
   data() {
     return {
       recommendedMeals: "",
       show: false,
-      dataAvailable: false,
+      dataAvailable: false
+      // meal: []
     };
   },
   computed: {
     meal() {
-      return this.$store.getters.mealById(this.$route.params.id);
-    },
+      return JSON.parse(localStorage.getItem("mealStorage"));
+      // return this.$store.getters.mealById(this.$route.params.id);
+    }
   },
   watch: {
+    // $route(to, from) {
+    //   console.log("changing route");
+    //   localStorage.clear();
+    // },
     meal() {
       this.fetchCategory();
-      console.log(this.meal);
-      this.meal = JSON.parse(localStorage.getItem("my-app"));
-      // localStorage.setItem("mealLocalStorage", JSON.stringify("1"));
-    },
+      console.log(this.$store.getters.mealById(this.$route.params.id));
+    }
   },
   methods: {
     setShow() {
@@ -73,16 +86,16 @@ export default {
         fetch(
           `https://www.themealdb.com/api/json/v1/1/search.php?s=${this.meal.strCategory}`
         )
-          .then((response) => response.json())
-          .then((data) => {
+          .then(response => response.json())
+          .then(data => {
             if (data.meals) {
               this.recommendedMeals = data.meals.slice(0, 3);
               this.dataAvailable = true;
             }
           });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
