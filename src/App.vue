@@ -19,6 +19,11 @@ export default {
   created() {
     this.init();
   },
+  watch: {
+    $route(to, from) {
+      localStorage.clear();
+    }
+  },
   methods: {
     init() {
       this.$store.dispatch("fetchMeals");

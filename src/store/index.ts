@@ -1,19 +1,14 @@
 import Vue from "vue";
 import Vuex from "vuex";
-// import VuexPersist from "vuex-persist";
+import API from "../interface";
+import category from "../category";
 
 Vue.use(Vuex);
 
-// const vuexPersist = new VuexPersist({
-//   key: "my-app",
-//   storage: window.localStorage,
-// });
-
 export default new Vuex.Store({
-  // plugins: [vuexPersist.plugin],
   state: {
-    meals: [],
-    categories: [],
+    meals: [] as API[],
+    categories: [] as category[],
   },
   getters: {
     meals(state) {
@@ -27,7 +22,7 @@ export default new Vuex.Store({
       return state.meals[random];
     },
     mealById(state) {
-      return (mealID) => {
+      return (mealID: number) => {
         return state.meals.find((meal) => meal.idMeal === mealID);
       };
     },
@@ -67,12 +62,12 @@ export default new Vuex.Store({
       commit("setMeals", meals);
     },
     async fetchCategories({ commit }) {
-      const categories = [];
+      const categories = [] as category[];
       const response = await fetch(
         `https://www.themealdb.com/api/json/v1/1/categories.php`
       );
       const data = await response.json();
-      data.categories.forEach((category, index) => {
+      data.categories.forEach((category: category, index: number) => {
         if (index < 9) {
           categories.push(category);
         }

@@ -1,29 +1,31 @@
 <template>
-  <div v-if="meal" class="container">
-    <div>
-      <img class="container__img" :src="meal.strMealThumb" alt />
-      <div class="container__info">
-        <h1>{{ meal.strMeal }}</h1>
-        <h3>Recipe</h3>
-        <p>{{ meal.strInstructions }}</p>
+  <div>
+    <div v-if="meal" class="container">
+      <div>
+        <img class="container__img" :src="meal.strMealThumb" alt />
+        <div class="container__info">
+          <h1>{{ meal.strMeal }}</h1>
+          <h3>Recipe</h3>
+          <p>{{ meal.strInstructions }}</p>
+        </div>
       </div>
-    </div>
-    <button class="btn" @click="setShow()">View Ingredients</button>
-    <div v-if="show">
-      <ul>
-        <li v-bind:key="ingredient.id" v-for="ingredient in meal.ingredients" v-html="ingredient"></li>
-      </ul>
-    </div>
-    <div v-if="dataAvailable">
-      <h3>Recommended Recipes</h3>
-      <div class="recommendations">
-        <div
-          v-bind:key="recommendedMeal.id"
-          v-for="recommendedMeal in recommendedMeals"
-          class="recommendation"
-        >
-          <h4>{{ recommendedMeal.strMeal }}</h4>
-          <img class="recommendation__img" :src="recommendedMeal.strMealThumb" alt="photo" />
+      <button class="btn" @click="setShow()">View Ingredients</button>
+      <div v-if="show">
+        <ul>
+          <li v-bind:key="ingredient.id" v-for="ingredient in meal.ingredients" v-html="ingredient"></li>
+        </ul>
+      </div>
+      <div v-if="dataAvailable">
+        <h3>Recommended Recipes</h3>
+        <div class="recommendations">
+          <div
+            v-bind:key="recommendedMeal.id"
+            v-for="recommendedMeal in recommendedMeals"
+            class="recommendation"
+          >
+            <h4>{{ recommendedMeal.strMeal }}</h4>
+            <img class="recommendation__img" :src="recommendedMeal.strMealThumb" alt="photo" />
+          </div>
         </div>
       </div>
     </div>
@@ -33,48 +35,19 @@
 <script>
 export default {
   name: "Meal",
-  created() {
+  mounted() {
     this.fetchCategory();
-    // if (localStorage.length === 0) {
-    // localStorage.clear();
-    // localStorage.setItem(
-    // "mealStorage",
-    // JSON.stringify(this.$store.getters.mealById(this.$route.params.id))
-    // );
-    // }
-    // this.meal = JSON.parse(localStorage.getItem("mealStorage"));
-
-    // if (localStorage.length !== 0) {
-    //   localStorage.clear();
-    //   localStorage.setItem(
-    //     "mealStorage",
-    //     JSON.stringify(this.$store.getters.mealById(this.$route.params.id))
-    //   );
-    //   this.meal = JSON.parse(localStorage.getItem("mealStorage"));
-    // }
   },
   data() {
     return {
       recommendedMeals: "",
       show: false,
       dataAvailable: false
-      // meal: []
     };
   },
   computed: {
     meal() {
       return JSON.parse(localStorage.getItem("mealStorage"));
-      // return this.$store.getters.mealById(this.$route.params.id);
-    }
-  },
-  watch: {
-    // $route(to, from) {
-    //   console.log("changing route");
-    //   localStorage.clear();
-    // },
-    meal() {
-      this.fetchCategory();
-      console.log(this.$store.getters.mealById(this.$route.params.id));
     }
   },
   methods: {

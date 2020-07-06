@@ -36,7 +36,6 @@ export default Vue.extend({
   },
   methods: {
     resetLocalStorage() {
-      localStorage.clear();
       localStorage.setItem(
         "mealStorage",
         JSON.stringify(this.$store.getters.mealById(this.$route.params.id))
