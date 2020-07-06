@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import API from "../interface";
-import category from "../category";
+import API from "../interface/randomAPI";
+import category from "../interface/categoryAPI";
 
 Vue.use(Vuex);
 

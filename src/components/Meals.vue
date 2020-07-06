@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import API from "../interface";
+import API from "../interface/randomAPI";
 
 export default Vue.extend({
   name: "Meals",
