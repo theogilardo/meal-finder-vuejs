@@ -2,14 +2,14 @@
 <template>
   <div class="container">
     <div>
-      <button class="btn-randomize" @click="fetch()">Randomize</button>
+      <button class="btn-randomize" @click="fetchRandomMeal()">Shuffle</button>
       <img class="container__img" :src="meals.strMealThumb" alt />
       <div class="container__info">
         <h1>{{ meals.strMeal }}</h1>
         <h3>Recipe</h3>
         <p>{{ meals.strInstructions }}</p>
       </div>
-      <button class="btn" @click="setShow()">View Ingredients</button>
+      <button class="btn" @click="showIngredients()">View Ingredients</button>
     </div>
     <div v-if="show">
       <ul>
@@ -30,12 +30,11 @@ export default {
     return {
       meals: "",
       ingredients: [],
-      records: [],
       show: false
     };
   },
   methods: {
-    setShow() {
+    showIngredients() {
       this.show = !this.show;
     },
     formatIngredients() {
@@ -57,7 +56,11 @@ export default {
       );
       const data = await response.json();
       this.meals = data.meals[0];
+
+      // Reset ingredients to an empty array
       this.ingredients = [];
+
+      // Format for each ingredient its name & measure property into one single string
       this.formatIngredients();
     }
   }
@@ -83,7 +86,6 @@ export default {
 
 .container__info {
   text-align: left;
-  margin-left: 7rem;
   align-self: flex-start;
   flex-direction: column;
   margin-left: 2rem;

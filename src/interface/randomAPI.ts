@@ -1,7 +1,7 @@
 export default API;
 
 interface API {
-  idMeal: number;
+  idMeal: string;
   strMeal: string;
   strDrinkAlternate: null;
   strCategory: string;

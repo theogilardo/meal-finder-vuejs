@@ -1,7 +1,7 @@
 export default category;
 
 interface category {
-  idCategory: number;
+  idCategory: string;
   strCategory: string;
   strCategoryThumb: string;
   strCategoryDescription: string;

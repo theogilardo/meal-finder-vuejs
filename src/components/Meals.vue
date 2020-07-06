@@ -35,6 +35,7 @@ export default Vue.extend({
     }
   },
   methods: {
+    // Sending data of the meal clicked to its detail page + Update local storage
     resetLocalStorage() {
       localStorage.setItem(
         "mealStorage",
@@ -42,17 +43,20 @@ export default Vue.extend({
       );
       location.reload();
     },
+    // Formating the products' description to less than 25 characters
     reduceText(meal: string) {
       return meal
         .split(" ")
         .filter((word, index) => index < 25)
         .join(" ");
     },
+    // Filtering from A to Z meals
     filterAZ() {
       this.meals = this.meals.sort((a: API, b: API) =>
         a.strMeal < b.strMeal ? -1 : 1
       );
     },
+    // Filtering from Z to A meals
     filterZA() {
       this.meals = this.meals.sort((a: API, b: API) =>
         a.strMeal < b.strMeal ? 1 : -1
@@ -108,7 +112,6 @@ a {
 
 .meal-info {
   flex: 1;
-
   text-align: left;
   padding: 1.5rem;
 }

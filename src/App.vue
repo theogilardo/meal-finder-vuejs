@@ -19,11 +19,13 @@ export default {
   created() {
     this.init();
   },
+  // Clears local storage once user leaves meal component
   watch: {
     $route(to, from) {
       localStorage.clear();
     }
   },
+  // Retrieve data from store for the Meals and Categories component
   methods: {
     init() {
       this.$store.dispatch("fetchMeals");
@@ -91,7 +93,6 @@ html {
 .btn {
   padding: 1rem 2rem;
   font-weight: 700;
-  border: none;
   background-image: linear-gradient(to right bottom, #8360c3cc, #2ebf91cc);
   background-clip: text;
   color: transparent;

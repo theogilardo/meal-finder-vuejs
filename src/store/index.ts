@@ -17,12 +17,8 @@ export default new Vuex.Store({
     categories(state) {
       return state.categories;
     },
-    randomMeal(state) {
-      const random = Math.floor(Math.random() * 10);
-      return state.meals[random];
-    },
     mealById(state) {
-      return (mealID: number) => {
+      return (mealID: string) => {
         return state.meals.find((meal) => meal.idMeal === mealID);
       };
     },
@@ -72,7 +68,6 @@ export default new Vuex.Store({
           categories.push(category);
         }
       });
-
       commit("setCategories", categories);
     },
   },

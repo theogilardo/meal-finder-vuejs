@@ -61,11 +61,15 @@ export default {
         );
         const data = await response.json();
         if (data.meals) {
-          // Removing the current meal from recommendations of similar categories to avoid duplicates
+          // Removing the current meal from recommendations (based on similar category) to avoid duplicates
           const dataFiltered = data.meals.filter(
             mealEl => mealEl.idMeal !== this.meal.idMeal
           );
+
+          // Displaying only 3 meals from the array rendered
           this.recommendedMeals = dataFiltered.slice(0, 3);
+
+          // Displaying the h3 tag 'Recommended Recipe' only when data is available
           this.dataAvailable = true;
         }
       }

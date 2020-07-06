@@ -1,9 +1,9 @@
 <template>
   <div class="navbar">
     <div>
-      <router-link to="/">Home</router-link>
+      <router-link to="/">Meals</router-link>
       <router-link to="/categories">Categories</router-link>
-      <router-link to="/random-meal">Random Meal</router-link>
+      <router-link to="/random-meal">Suffle Meal</router-link>
     </div>
   </div>
 </template>
