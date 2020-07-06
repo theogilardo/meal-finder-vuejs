@@ -6,7 +6,7 @@
         <button class="btn" @click="filterZA()">Sort Z/A</button>
       </div>
       <div v-bind:key="record.id" v-for="record in records">
-        <router-link :to="{ name: 'meal', params: { id: record } }">
+        <router-link :to="{ name: 'meal', params: { id: record.idMeal } }">
           <div class="meal-list">
             <div class="meal-info">
               <h2>{{ record.strMeal }}</h2>
@@ -25,14 +25,11 @@ import Vue from "vue";
 import API from "../interface";
 
 export default Vue.extend({
-  name: "Shopping",
-  mounted() {
-    this.fetch();
-  },
-  data() {
-    return {
-      records: [] as API[]
-    };
+  name: "Meals",
+  computed: {
+    records() {
+      return this.$store.getters.meals;
+    }
   },
   methods: {
     reduceText(record: string) {
@@ -50,15 +47,6 @@ export default Vue.extend({
       this.records = this.records.sort((a: API, b: API) =>
         a.strMeal < b.strMeal ? 1 : -1
       );
-    },
-    fetch() {
-      for (let i = 0; i < 10; i++) {
-        fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
-          .then(response => response.json())
-          .then(data => {
-            this.records.push(data.meals[0]);
-          });
-      }
     }
   }
 });

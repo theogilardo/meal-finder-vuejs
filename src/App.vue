@@ -15,6 +15,15 @@ export default {
   components: {
     Footer,
     Navbar
+  },
+  created() {
+    this.init();
+  },
+  methods: {
+    init() {
+      this.$store.dispatch("fetchMeals");
+      this.$store.dispatch("fetchCategories");
+    }
   }
 };
 </script>

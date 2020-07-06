@@ -1,31 +1,38 @@
 <template>
-  <div class="container">
+  <div v-if="meal" class="container">
     <div>
-      <img class="container__img" :src="details.strMealThumb" alt />
+      <img class="container__img" :src="meal.strMealThumb" alt />
       <div class="container__info">
-        <h1>{{ details.strMeal }}</h1>
+        <h1>{{ meal.strMeal }}</h1>
         <h3>Recipe</h3>
-        <p>{{ details.strInstructions }}</p>
+        <p>{{ meal.strInstructions }}</p>
       </div>
     </div>
     <button class="btn" @click="setShow()">View Ingredients</button>
     <div v-if="show">
       <ul>
-        <li v-bind:key="ingredient.id" v-for="ingredient in ingredients" v-html="ingredient"></li>
+        <li
+          v-bind:key="ingredient.id"
+          v-for="ingredient in meal.ingredients"
+          v-html="ingredient"
+        ></li>
       </ul>
     </div>
     <div v-if="dataAvailable">
       <h3>Recommended Recipes</h3>
       <div class="recommendations">
-        <div v-bind:key="record.id" v-for="record in records" class="recommendation">
-          <h4>{{ record.strMeal }}</h4>
-          <img class="recommendation__img" :src="record.strMealThumb" alt="photo" />
+        <div
+          v-bind:key="recommendedMeal.id"
+          v-for="recommendedMeal in recommendedMeals"
+          class="recommendation"
+        >
+          <h4>{{ recommendedMeal.strMeal }}</h4>
+          <img
+            class="recommendation__img"
+            :src="recommendedMeal.strMealThumb"
+            alt="photo"
+          />
         </div>
-
-        <!-- <div v-bind:key="record.id" v-for="record in records" class="recommendation">
-          <h4>{{ record.strMeal }}</h4>
-          <img class="recommendation__img" :src="record.strMealThumb" alt="photo" />
-        </div>-->
       </div>
     </div>
   </div>
@@ -36,47 +43,46 @@ export default {
   name: "Meal",
   mounted() {
     this.fetchCategory();
-    this.formatIngredients();
   },
   data() {
     return {
-      details: this.$route.params.id,
-      ingredients: [],
-      records: "",
+      recommendedMeals: "",
       show: false,
-      dataAvailable: false
+      dataAvailable: false,
     };
+  },
+  computed: {
+    meal() {
+      return this.$store.getters.mealById(this.$route.params.id);
+    },
+  },
+  watch: {
+    meal() {
+      this.fetchCategory();
+      console.log(this.meal);
+      this.meal = JSON.parse(localStorage.getItem("my-app"));
+      // localStorage.setItem("mealLocalStorage", JSON.stringify("1"));
+    },
   },
   methods: {
     setShow() {
       this.show = !this.show;
     },
-    formatIngredients() {
-      for (let i = 1; i <= 20; i++) {
-        if (this.details[`strIngredient${i}`]) {
-          this.ingredients.push(
-            `${this.details[`strIngredient${i}`]} <strong> ${
-              this.details[`strMeasure${i}`]
-            }</strong>`
-          );
-        } else {
-          break;
-        }
+    fetchCategory() {
+      if (this.meal) {
+        fetch(
+          `https://www.themealdb.com/api/json/v1/1/search.php?s=${this.meal.strCategory}`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.meals) {
+              this.recommendedMeals = data.meals.slice(0, 3);
+              this.dataAvailable = true;
+            }
+          });
       }
     },
-    fetchCategory() {
-      fetch(
-        `https://www.themealdb.com/api/json/v1/1/search.php?s=${this.details.strCategory}`
-      )
-        .then(response => response.json())
-        .then(data => {
-          if (data.meals) {
-            this.records = data.meals.slice(0, 3);
-          }
-          this.dataAvailable = true;
-        });
-    }
-  }
+  },
 };
 </script>
 

@@ -137,7 +137,7 @@ li {
 
 .btn-randomize {
   position: absolute;
-  top: 2%;
+  top: 12px;
   right: 1.5%;
   font-size: 1.5rem;
   padding: 1rem 2rem;
@@ -158,6 +158,7 @@ li {
 
 @media only screen and (max-width: 900px) {
   .btn-randomize {
+    top: 25px;
     left: 50%;
     transform: translateX(-50%);
   }
