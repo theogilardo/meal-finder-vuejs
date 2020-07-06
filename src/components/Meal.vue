@@ -36,7 +36,7 @@
 export default {
   name: "Meal",
   mounted() {
-    this.fetchCategory();
+    this.fetchRecommendations();
   },
   data() {
     return {
@@ -54,18 +54,20 @@ export default {
     setShow() {
       this.show = !this.show;
     },
-    fetchCategory() {
+    async fetchRecommendations() {
       if (this.meal) {
-        fetch(
+        const response = await fetch(
           `https://www.themealdb.com/api/json/v1/1/search.php?s=${this.meal.strCategory}`
-        )
-          .then(response => response.json())
-          .then(data => {
-            if (data.meals) {
-              this.recommendedMeals = data.meals.slice(0, 3);
-              this.dataAvailable = true;
-            }
-          });
+        );
+        const data = await response.json();
+        if (data.meals) {
+          // Removing the current meal from recommendations of similar categories to avoid duplicates
+          const dataFiltered = data.meals.filter(
+            mealEl => mealEl.idMeal !== this.meal.idMeal
+          );
+          this.recommendedMeals = dataFiltered.slice(0, 3);
+          this.dataAvailable = true;
+        }
       }
     }
   }

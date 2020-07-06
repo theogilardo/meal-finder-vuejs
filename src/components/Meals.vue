@@ -5,17 +5,17 @@
         <button class="btn" @click="filterAZ()">Sort A/Z</button>
         <button class="btn" @click="filterZA()">Sort Z/A</button>
       </div>
-      <div v-bind:key="record.id" v-for="record in records">
+      <div v-bind:key="meal.id" v-for="meal in meals">
         <router-link
           @click.native="resetLocalStorage()"
-          :to="{ name: 'meal', params: { id: record.idMeal } }"
+          :to="{ name: 'meal', params: { id: meal.idMeal } }"
         >
           <div class="meal-list">
             <div class="meal-info">
-              <h2>{{ record.strMeal }}</h2>
-              <p>{{ reduceText(record.strInstructions) }}...</p>
+              <h2>{{ meal.strMeal }}</h2>
+              <p>{{ reduceText(meal.strInstructions) }}...</p>
             </div>
-            <img :src="`${record.strMealThumb}`" alt="meal-photo" />
+            <img :src="`${meal.strMealThumb}`" alt="meal-photo" />
           </div>
         </router-link>
       </div>
@@ -30,7 +30,7 @@ import API from "../interface/randomAPI";
 export default Vue.extend({
   name: "Meals",
   computed: {
-    records() {
+    meals() {
       return this.$store.getters.meals;
     }
   },
@@ -42,19 +42,19 @@ export default Vue.extend({
       );
       location.reload();
     },
-    reduceText(record: string) {
-      return record
+    reduceText(meal: string) {
+      return meal
         .split(" ")
         .filter((word, index) => index < 25)
         .join(" ");
     },
     filterAZ() {
-      this.records = this.records.sort((a: API, b: API) =>
+      this.meals = this.meals.sort((a: API, b: API) =>
         a.strMeal < b.strMeal ? -1 : 1
       );
     },
     filterZA() {
-      this.records = this.records.sort((a: API, b: API) =>
+      this.meals = this.meals.sort((a: API, b: API) =>
         a.strMeal < b.strMeal ? 1 : -1
       );
     }
