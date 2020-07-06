@@ -148,7 +148,7 @@ img {
     width: 100%;
     height: 100%;
     background-color: #333;
-    opacity: 0.3;
+    opacity: 0.5;
   }
 
   img {

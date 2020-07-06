@@ -184,7 +184,7 @@ li {
   h3,
   p {
     text-align: center;
-    padding: 1rem 2rem;
+    padding: 1rem 0;
   }
 
   h1 {
