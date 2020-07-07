@@ -3,7 +3,7 @@
     <div>
       <router-link to="/">Meals</router-link>
       <router-link to="/categories">Categories</router-link>
-      <router-link to="/random-meal">Suffle Meal</router-link>
+      <router-link to="/random-meal">Shuffle Meal</router-link>
     </div>
   </div>
 </template>
